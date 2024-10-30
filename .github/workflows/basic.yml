@@ -1,4 +1,4 @@
-name: Tech Days 2024 Demo
+name: Tech Days 2024 Demo parent
 
 on:
   push:
