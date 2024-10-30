@@ -7,7 +7,6 @@ on:
 jobs:
   # Stage 2: Sequential jobs (Provision_Job and Deploy_Job)
   Provision_Job:
-    needs: [Build_Job,Test_Job]
     runs-on: ubuntu-latest
     steps:
       - run: echo "Performing provisioning"
