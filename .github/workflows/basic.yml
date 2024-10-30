@@ -5,27 +5,13 @@ on:
     branches:
       - main
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # Stage 1: Parallel jobs (Build_Job and Test_Job)
-  Build_Job:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Performing build"
+  call_Integration_workflow:
+    uses: ./.github/workflows/Integration.yml
+    # You can pass inputs to the child workflow
+    #with:
 
-  Test_Job:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Performing tests"
-
-  # Stage 2: Sequential jobs (Provision_Job and Deploy_Job)
-  Provision_Job:
-    needs: [Build_Job,Test_Job]
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Performing provisioning"
-
-  Deploy_Job:
-    needs: Provision_Job
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Performing deployment"
+  call_Delivery_workflow:
+    needs: call_Integration_workflow # Ensure this runs after
+    uses: ./.github/workflows/Delivery.yml

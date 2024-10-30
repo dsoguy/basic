@@ -1,0 +1,31 @@
+name: Tech Days 2024 Demo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # Stage 1: Parallel jobs (Build_Job and Test_Job)
+  Build_Job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Performing build"
+
+  Test_Job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Performing tests"
+
+  # Stage 2: Sequential jobs (Provision_Job and Deploy_Job)
+  Provision_Job:
+    needs: [Build_Job,Test_Job]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Performing provisioning"
+
+  Deploy_Job:
+    needs: Provision_Job
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Performing deployment"

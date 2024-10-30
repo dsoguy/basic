@@ -1,0 +1,17 @@
+name: Tech Days 2024 Demo
+
+on:
+  push:
+    branches:
+      - main
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  call_Integration_workflow:
+    uses: ./.github/workflows/Integration.yml
+    # You can pass inputs to the child workflow
+    #with:
+
+  call_Delivery_workflow:
+    needs: call_Integration_workflow # Ensure this runs after
+    uses: ./.github/workflows/Delivery.yml

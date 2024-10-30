@@ -1,0 +1,19 @@
+# This is a child workflow
+name: Delivery
+
+on:
+  workflow_call: # Make this workflow callable by other workflows
+
+jobs:
+  # Stage 2: Sequential jobs (Provision_Job and Deploy_Job)
+  Provision_Job:
+    needs: [Build_Job,Test_Job]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Performing provisioning"
+
+  Deploy_Job:
+    needs: Provision_Job
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Performing deployment"
