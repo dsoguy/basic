@@ -8,10 +8,12 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   call_Integration_workflow:
+    name: Integration
     uses: ./.github/workflows/Integration.yml
     # You can pass inputs to the child workflow
     #with:
 
   call_Delivery_workflow:
+    name: Delivery
     needs: call_Integration_workflow # Ensure this runs after
     uses: ./.github/workflows/Delivery.yml
